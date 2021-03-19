@@ -2,7 +2,7 @@ export function noWhiteSpaces(string: String){
     let noWhiteSpace = string.replace(/\s+/g, '')
     return noWhiteSpace
 }
-  
+
 export function setToChar(string: String){
     let ASCIIArray = []
     for (let i = 0; i < string.length; i++)
@@ -35,34 +35,30 @@ export function addRemainingCharToArray(ASCIIArray, voudigheid){
     return ASCIIArray
 }
 
-export function modulus10(firstArray, secondArray?) {
+// Recursive functions
+export function modulus10(firstArray, secondArray = []) {
     let notHigherThan10
-    let array = []
+    if(firstArray.length == 0){
+        return secondArray
+    } else {
+        if(secondArray.length < 10){
+            notHigherThan10 = (firstArray[0] + firstArray[firstArray.length/2])
+           
+            firstArray.splice(0,1)
+            firstArray.splice(firstArray.length/2,1)
 
-    for (let inter=0; inter < 10; inter++){
-        if(secondArray == null){
-            if (firstArray[inter] + firstArray[inter + 10] >= 10) {
-                notHigherThan10 = (firstArray[inter] + firstArray[inter + 10]) - 10
-            } else {
-                notHigherThan10 = (firstArray[inter] + firstArray[inter + 10])
-            }
         } else {
-            if (firstArray[inter] + secondArray[inter] >= 10) {
-                notHigherThan10 = (firstArray[inter] + secondArray[inter]) - 10
-            } else {
-                notHigherThan10 = (firstArray[inter] + secondArray[inter])
-            }
+            notHigherThan10 = (firstArray[0] + secondArray[0])
+            
+            firstArray.splice(0,1)
+            secondArray.splice(0,1)
         }
-        array.push(notHigherThan10)
-    }
-
-    if (secondArray == null) {
-        // Verwijder eerste 20 char uit Array
-        for (let i = 0; i < 20; i++){
-        firstArray.splice(0,1)
+        if(notHigherThan10 >= 10){
+            notHigherThan10 -= 10
         }
+        secondArray.push(notHigherThan10)
+        return modulus10(firstArray, secondArray)
     }
-    return array
 }
 
 export function hashLoop (voudigheid, ASCIIArray, nieuweReeks) {
