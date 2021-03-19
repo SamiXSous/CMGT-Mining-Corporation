@@ -41,21 +41,25 @@ export function getNextData() {
       
       step2 = step1Hash + nextTransactionFrom + nextTransactionTo + nextTransactionAmount + nextTransactionTimestamp + nextTimestamp;
       
+      searchNonce(step2)
       // Stap 2 Opzoek naar een nonce
-      for (let i=0; i < 10000000; i++) {
-        let step2point1 = step2 + i
-        let step2point2 = mod10Hash(step2point1)
-        // Check to see if nonce with mod10Hash starts with 0000
-        if (step2point2.startsWith('0000')){
-          console.log("Nonce: ",i)
-          // Stap 3 Stuur nonce op met post
-          postNonce(i)
-          return
-        }
-      }
+      
     })
 }
 
+function searchNonce(step2){
+  for (let i=0; i < 1000000000000; i++) {
+    let step2point1 = step2 + i
+    let step2point2 = mod10Hash(step2point1)
+    // Check to see if nonce with mod10Hash starts with 0000
+    if (step2point2.startsWith('0000')){
+      console.log("Nonce: ",i)
+      // Stap 3 Stuur nonce op met post
+      postNonce(i)
+      return
+    }
+  }
+}
 
 function postNonce(nonce){
   let data = {

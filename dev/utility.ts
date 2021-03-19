@@ -38,27 +38,31 @@ export function addRemainingCharToArray(ASCIIArray, voudigheid){
 // Recursive functions
 export function modulus10(firstArray, secondArray = []) {
     let notHigherThan10
+    
     if(firstArray.length == 0){
         return secondArray
-    } else {
-        if(secondArray.length < 10){
-            notHigherThan10 = (firstArray[0] + firstArray[firstArray.length/2])
-           
-            firstArray.splice(0,1)
-            firstArray.splice(firstArray.length/2,1)
-
-        } else {
-            notHigherThan10 = (firstArray[0] + secondArray[0])
-            
-            firstArray.splice(0,1)
-            secondArray.splice(0,1)
-        }
-        if(notHigherThan10 >= 10){
-            notHigherThan10 -= 10
-        }
-        secondArray.push(notHigherThan10)
-        return modulus10(firstArray, secondArray)
     }
+
+    if(secondArray.length < 10){
+        
+        notHigherThan10 = (firstArray[0] + firstArray[firstArray.length/2])
+        
+        firstArray.splice(0,1)
+        firstArray.splice(firstArray.length/2,1)
+
+    } else {
+        notHigherThan10 = (firstArray[0] + secondArray[0])
+        
+        firstArray.splice(0,1)
+        secondArray.splice(0,1)
+    }
+
+    if(notHigherThan10 >= 10){
+        notHigherThan10 -= 10
+    }
+
+    secondArray.push(notHigherThan10)
+    return modulus10(firstArray, secondArray)
 }
 
 export function hashLoop (voudigheid, ASCIIArray, nieuweReeks) {
